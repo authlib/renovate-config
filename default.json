@@ -1,0 +1,40 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Renovate policy shared by the authlib organization repositories.",
+  "extends": [
+    "config:recommended",
+    ":enablePreCommit",
+    ":semanticCommits",
+    ":semanticCommitTypeAll(chore)",
+    ":semanticCommitScopeDisabled"
+  ],
+  "timezone": "Europe/Paris",
+  "schedule": ["* * 1 * *"],
+  "minimumReleaseAge": "7 days",
+  "internalChecksFilter": "strict",
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["* * 1 * *"]
+  },
+  "vulnerabilityAlerts": {
+    "automerge": true,
+    "labels": ["security"]
+  },
+  "osvVulnerabilityAlerts": true,
+  "packageRules": [
+    {
+      "description": "Only update the lock file, so the dependency ranges published to users stay unchanged.",
+      "matchManagers": ["pep621"],
+      "rangeStrategy": "update-lockfile"
+    },
+    {
+      "matchUpdateTypes": ["patch", "digest", "pin"],
+      "groupName": "patch updates",
+      "automerge": true
+    },
+    {
+      "matchUpdateTypes": ["minor", "major"],
+      "groupName": "dependency updates"
+    }
+  ]
+}
